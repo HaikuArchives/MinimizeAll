@@ -65,9 +65,6 @@ resource app_version {
 	variety = B_APPV_FINAL,
 	internal = 0,
 
-	short_info = #'CSTR' array {
-
-	},
 	long_info = "1.0 ©2001 Werner Freytag"
 };
 
