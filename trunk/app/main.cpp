@@ -8,7 +8,7 @@
  *              Werner Freytag <freytag@gmx.de>
  */
 
-#include "minimize_all.h"
+#include "../minimize.h"
 
 #include <Application.h>
 
@@ -16,7 +16,7 @@ int main() {
 
 	be_app = new BApplication("application/x-vnd.pecora-minimizeall");
 
-	minimize_all();
+	minimize(min_minimize_all);
 	return 0;
 
 	delete be_app;
