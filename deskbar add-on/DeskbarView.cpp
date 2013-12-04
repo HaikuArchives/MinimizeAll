@@ -16,15 +16,15 @@
 #include <Deskbar.h>
 #include <Entry.h>
 #include <File.h>
-#include <iostream>
 #include <MenuItem.h>
 #include <Message.h>
 #include <PopUpMenu.h>
 #include <Resources.h>
 #include <Roster.h>
+#include <stdio.h>
 #include <Window.h>
 
-#include "minimize_all.h"
+#include "../minimize.h"
 
 extern "C" _EXPORT BView *instantiate_deskbar_item();
 
@@ -80,7 +80,7 @@ void DeskbarView::Init() {
 		fMinimizedIcon = new BBitmap( &msg );
 	}
 	else {
-		cerr << "*** Resource not found" << endl;
+		printf("*** Resource not found\n");
 	}
 
 	fPopUpMenu = NULL;
@@ -145,7 +145,7 @@ void DeskbarView::MouseDown(BPoint where) {
 void DeskbarView::MouseUp(BPoint where) {
 
 	if (fMouseDown && Bounds().Contains(where)) {
-		minimize_all();
+		minimize(min_minimize_all);
 	}
 
 	fMouseDown = false;
@@ -173,7 +173,14 @@ void DeskbarView::MessageReceived( BMessage *msg ) {
 
 void DeskbarView::AddToDeskbar()
 {
-#if B_BEOS_VERSION >= B_BEOS_VERSION_5
+#if defined(__HAIKU__)
+	BApplication app(APP_SIGNATURE);
+	BDeskbar *deskbar = new BDeskbar();
+	app_info info;
+	app.GetAppInfo(&info);
+	printf("%d: ", deskbar->AddItem(&info.ref) == B_OK);
+	delete deskbar;
+#elif B_BEOS_VERSION >= B_BEOS_VERSION_5
 	BDeskbar *deskbar = new BDeskbar();
 	entry_ref ref;
 	be_roster->FindApp(APP_SIGNATURE, &ref);
@@ -181,9 +188,9 @@ void DeskbarView::AddToDeskbar()
 	delete deskbar;
 #else
 	BDeskbar *deskbar = new BDeskbar();
-	DeskbarView *replicant = new DeskbarView( VIEW_RECT );
+	DeskbarView *replicant = new DeskbarView();
 	
-	err = deskbar->AddItem(replicant);
+	status_t err = deskbar->AddItem(replicant);
 	delete replicant;
 	delete deskbar;
 #endif
