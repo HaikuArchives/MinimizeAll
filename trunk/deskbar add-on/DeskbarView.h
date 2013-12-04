@@ -20,7 +20,7 @@
 class _EXPORT DeskbarView;
 
 class BBitmap;
-
+class BPopUpMenu;
 class DeskbarView : public BView
 {
 
