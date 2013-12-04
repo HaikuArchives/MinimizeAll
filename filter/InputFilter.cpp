@@ -15,7 +15,7 @@
 #include <OS.h>
 #include <stdio.h>
 
-#include "minimize.h"
+#include "../minimize.h"
 
 //------------------------------------------------------------------------
 
