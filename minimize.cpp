@@ -20,6 +20,8 @@
 #include <string.h>
 #include <vector>
 
+using std::vector;
+
 // wird irgendwo vom BeOS definiert (stammt aus Tracker source)
 void do_minimize_team(BRect zoomRect, team_id team, bool zoom);
 void do_bring_to_front_team(BRect zoomRect, team_id app, bool zoom);
