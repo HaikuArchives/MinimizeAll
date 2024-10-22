@@ -167,7 +167,8 @@ void DeskbarView::MessageReceived( BMessage *msg ) {
 	if (msg->what=='Remv') {
 		BDeskbar deskbar;
 		deskbar.RemoveItem(VIEW_NAME);
-	}
+	} else
+		BView::MessageReceived(msg);
 
 }
 
